@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>注册验证</title>
+    <style>
+        .wrap {
+            width: 1000px;
+            margin: 0 auto;
+            background-color: #eee;
+        }
+        .title {
+            background-color: #3693CF;
+            height: 30px;
+            line-height: 30px;
+            color: #fff;
+            text-indent: 15px;
+        }
+        .content {
+            width: 800px;
+            margin: 0 0 0 300px;
+        }
+        span {
+            margin-left: 20px;
+            display: inline-block;
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <div class="wrap">
+        <div class="title">用户注册</div>
+        <div class="content">
+           <p>用户名：<input type="text" class="userName"><span class="userName"></span></p> 
+           <p>登录密码：<input type="password" class="psw"> <span class="psw"></span></p> 
+           <p>确认密码: <input type="password" class="check"> <span class="check"></span></p> 
+           <p>姓名: <input type="text" class="pname"><span class="pname"></span></p> 
+           <p>性别: <select name="" id="">
+                        <option value="male">男</option>
+                        <option value="female">女</option>
+                    </select>
+                    <span></span>
+                </p> 
+           <p> 身份证号码: <input type="text" class="pnum"><span class="pnum"></span></p>
+           <p>邮箱: <input type="text" class="email"><span class="email"></span></p> 
+            <p>手机号码: <input type="text" class="phone"><span class="phone"></span></p>
+            <button class="btn">提交</button>
+        </div>
+    </div>
+    <script>
+        var regExp = {
+            userName: [/^[a-zA-z]\w{5,19}$/,"6-20位字母、数字或“_”,字母开头"],
+            psw:[/(\w|\S){6,18}/,"6-18数字、字母或符号中间不能有空格"],
+            pname:[/[\u4e00-\u9fa5]{2,4}/,"两到四位中文汉字"],
+            pnum:[/^(\d{15}\d{0,3})$|^(\d{17}[x|X|\d]?)$/,"15到18位数字"],
+            email:[/^([0-9a-zA-Z]+)([._-][a-z0-9]+)*@([a-z0-9]+)([.-_][a-z0-9]+)*\.([a-z]{2,4})$/i,"邮箱格式错误，请输入正确的邮箱"],
+            phone:[/^13[0-9]\d{8}$|^15[0-35-9]\d{8}$|^18[0-25-9]\d{8}$|^147\d{8}$/,"手机格式错误"],
+            check:["两次密码不一致"]
+        }
+        var userName = document.getElementsByClassName("userName")[0],
+            userNameText = document.getElementsByClassName("userName")[1],
+            psw = document.getElementsByClassName("psw")[0],
+            pswText = document.getElementsByClassName("psw")[1],
+            pname = document.getElementsByClassName("pname")[0],
+            pnameText = document.getElementsByClassName("pname")[1],
+            pnum = document.getElementsByClassName('pnum')[0],
+            pnumText = document.getElementsByClassName("pnum")[1]
+            email = document.getElementsByClassName("email")[0],
+            emailText = document.getElementsByClassName("email")[1],
+            phone = document.getElementsByClassName("phone")[0],
+            phoneText = document.getElementsByClassName("phone")[1],
+            check = document.getElementsByClassName('check')[0],
+            checkText = document.getElementsByClassName('check')[1],
+            btn = document.getElementsByClassName('btn')[0]
+        // function addEvent(event,elem1,elem2){
+        //      elem1.addEventListener(event,function(){
+        //    if(regExp[elem1][0].test(elem1.value)){
+        //         elem2.innerHTML = "OK" ;            
+        //    } else {
+        //        elem2.innerHTML = regExp.elem1[1];
+        //    }
+        // })
+        // }
+        // addEvent("blur",userName,userNameText)
+        function verify(){
+            userName.addEventListener("blur",function(){
+           if(regExp.userName[0].test(userName.value)){
+                userNameText.innerHTML = "OK" ;            
+           } else {
+               userNameText.innerHTML = regExp.userName[1];
+           }
+        });
+        psw.addEventListener("blur",function(){
+           if(regExp.psw[0].test(psw.value)){
+                pswText.innerHTML = "OK" ;            
+           } else {
+               pswText.innerHTML = regExp.psw[1];
+           }
+        });
+        pname.addEventListener("blur",function(){
+           if(regExp.pname[0].test(pname.value)){
+                pnameText.innerHTML = "OK" ;            
+           } else {
+               pnameText.innerHTML = regExp.pname[1];
+           }
+        });
+        pnum.addEventListener("blur",function(){
+           if(regExp.pnum[0].test(pnum.value)){
+                pnumText.innerHTML = "OK" ;            
+           } else {
+               pnumText.innerHTML = regExp.pnum[1];
+           }
+        });
+        email.addEventListener("blur",function(){
+            if(regExp.email[0].test(email.value)){
+                emailText.innerHTML = "OK";
+            } else {
+                emailText.innerHTML = regExp.email[1];
+            }
+        })
+        phone.addEventListener("blur",function(){
+            if(regExp.phone[0].test(phone.value)){
+                phoneText.innerHTML = "OK";
+            } else {
+                phoneText.innerHTML = regExp.phone[1]
+            }
+        })
+        check.addEventListener('blur',function(){
+            if(check.value === psw.value){
+                checkText.innerHTML = "OK";
+            } else {
+                checkText.innerHTML = regExp.check;
+            }
+        })
+        }
+        verify();
+        
+        btn.addEventListener("click",function(){
+            if(regExp.userName[0].test(userName.value)){
+                userNameText.innerHTML = "OK" ;            
+           } else {
+               userNameText.innerHTML = regExp.userName[1];
+           };
+           if(regExp.psw[0].test(psw.value)){
+                pswText.innerHTML = "OK" ;            
+           } else {
+               pswText.innerHTML = regExp.psw[1];
+           };
+           if(regExp.pname[0].test(pname.value)){
+                pnameText.innerHTML = "OK" ;            
+           } else {
+               pnameText.innerHTML = regExp.pname[1];
+           };
+           if(regExp.pnum[0].test(pnum.value)){
+                pnumText.innerHTML = "OK" ;            
+           } else {
+               pnumText.innerHTML = regExp.pnum[1];
+           };
+           if(regExp.email[0].test(email.value)){
+                emailText.innerHTML = "OK";
+            } else {
+                emailText.innerHTML = regExp.email[1];
+            };
+            if(regExp.phone[0].test(phone.value)){
+                phoneText.innerHTML = "OK";
+            } else {
+                phoneText.innerHTML = regExp.phone[1]
+            };
+            if(check.value === psw.value){
+                checkText.innerHTML = "OK";
+            } else {
+                checkText.innerHTML = regExp.check;
+            }
+
+
+        }) 
+
+       
+    </script>
+</body>
+</html>
